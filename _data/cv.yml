@@ -1,0 +1,30 @@
+# CV data in RenderCV format. Add more sections (Experience, Projects, Awards, Skills,
+# Languages, Certificates) when you need them; see the al-folio docs for the fields.
+cv:
+  name: Daniyal Bissenov
+  label: Undergraduate Student
+  email: daniyal.bissenov@gmail.com
+  location: Astana, Kazakhstan
+  image: ""
+  summary: Undergraduate student interested in LLM research, in particular transformer architectures, attention and positional encodings.
+
+  social_networks:
+    - network: GitHub
+      username: 01danl
+    - network: X
+      username: daniyalbissenov
+
+  sections:
+    Education:
+      - institution: Astana IT University
+        location: Astana, Kazakhstan
+        url: https://astanait.edu.kz/en/
+        area: Big Data Analysis
+        studyType: BSc
+        # start_date: 2023 # TODO: fill in your real years
+        # end_date: 2027
+
+    Interests:
+      - name: LLM research
+        icon: fa-solid fa-tag
+        keywords: "Transformer architectures, Attention mechanisms, Positional encodings"

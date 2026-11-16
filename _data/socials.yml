@@ -1,0 +1,9 @@
+# this file contains the social media links and usernames of the author
+# the socials will be displayed in the order they are defined here
+# for more information, please refer to the documentation of jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
+email: daniyal.bissenov@gmail.com # your email address
+github_username: 01danl # your GitHub user name
+x_username: daniyalbissenov # your X handle
+rss_icon: true # comment this line to hide the RSS icon
+# scholar_userid: # your Google Scholar ID (add it when you have a profile)
+# linkedin_username: # your LinkedIn user name
