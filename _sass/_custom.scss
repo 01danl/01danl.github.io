@@ -1,0 +1,632 @@
+/* =============================================================================
+ * Site design layer.
+ *
+ * Loaded last from assets/css/main.scss, so everything here overrides the
+ * al-folio defaults. To change the look of the site, edit this file:
+ *   1. colors and fonts  -> the two token blocks right below
+ *   2. everything else   -> the sections further down
+ * ========================================================================== */
+
+/* ---------- 1. Tokens: light theme (default) ------------------------------ */
+
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-serif: "Source Serif 4", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --global-bg-color: #ffffff;
+  --global-text-color: #1d1d1f;
+  --global-text-color-light: #6b6e76;
+  --global-theme-color: #2a50c8;
+  --global-hover-color: #1b3794;
+  --global-hover-text-color: #ffffff;
+  --global-divider-color: #e8e8ec;
+  --global-code-bg-color: #f6f7f9;
+  --global-card-bg-color: #ffffff;
+  --global-footer-bg-color: #ffffff;
+  --global-footer-text-color: #6b6e76;
+  --global-footer-link-color: #1d1d1f;
+  --global-back-to-top-bg-color: rgba(29, 29, 31, 0.55);
+  --global-back-to-top-text-color: #ffffff;
+
+  --site-text-soft: #3f4147;
+  --site-link-underline: rgba(42, 80, 200, 0.3);
+  --site-selection: rgba(42, 80, 200, 0.16);
+}
+
+/* ---------- 1b. Tokens: dark theme ---------------------------------------- */
+
+html[data-theme="dark"] {
+  --global-bg-color: #101216;
+  --global-text-color: #e6e6e9;
+  --global-text-color-light: #9799a1;
+  --global-theme-color: #8fb0ff;
+  --global-hover-color: #b7cdff;
+  --global-hover-text-color: #101216;
+  --global-divider-color: #272a31;
+  --global-code-bg-color: #181b21;
+  --global-card-bg-color: #15181d;
+  --global-footer-bg-color: #101216;
+  --global-footer-text-color: #9799a1;
+  --global-footer-link-color: #e6e6e9;
+  --global-back-to-top-bg-color: rgba(230, 230, 233, 0.6);
+  --global-back-to-top-text-color: #101216;
+
+  --site-text-soft: #c3c5cb;
+  --site-link-underline: rgba(143, 176, 255, 0.35);
+  --site-selection: rgba(143, 176, 255, 0.25);
+}
+
+/* ---------- 2. Base typography -------------------------------------------- */
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+
+h5,
+h6 {
+  font-weight: 600;
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+::selection {
+  background-color: var(--site-selection);
+}
+
+a {
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--global-hover-color);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Links inside running text get a quiet underline so they read as links. */
+article p a,
+article li a {
+  text-decoration: underline;
+  text-decoration-color: var(--site-link-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+article p a:hover,
+article li a:hover {
+  text-decoration-color: currentColor;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--global-divider-color);
+  margin: 2.5rem 0;
+}
+
+/* ---------- 3. Navbar ----------------------------------------------------- */
+
+.navbar {
+  opacity: 1;
+  background-color: color-mix(in srgb, var(--global-bg-color) 84%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+}
+
+.navbar.navbar-light .navbar-brand {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.navbar.navbar-light .navbar-brand .font-weight-bold {
+  font-weight: inherit;
+}
+
+.navbar.navbar-light .navbar-nav .nav-item .nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--global-text-color-light);
+  transition: color 0.15s ease;
+}
+
+.navbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
+  color: var(--global-text-color);
+}
+
+.navbar.navbar-light .navbar-nav .nav-item.active > .nav-link,
+.navbar.navbar-light .navbar-nav .nav-item.active > .nav-link:hover {
+  font-weight: 500;
+  color: var(--global-text-color);
+}
+
+@media (min-width: 576px) {
+  /* thin accent line under the current page */
+  .navbar.navbar-light .navbar-nav .nav-item.active > .nav-link {
+    background-image: linear-gradient(var(--global-theme-color), var(--global-theme-color));
+    background-repeat: no-repeat;
+    background-position: center bottom 0.3rem;
+    background-size: calc(100% - 1rem) 1.5px;
+  }
+}
+
+#search-toggle,
+#light-toggle {
+  color: var(--global-text-color-light);
+  transition: color 0.15s ease;
+}
+
+#search-toggle:hover,
+#light-toggle:hover {
+  color: var(--global-text-color);
+}
+
+#search-toggle .nav-link {
+  font-size: 0.85rem;
+}
+
+progress {
+  height: 2px;
+}
+
+/* ---------- 4. Page header (name on the home page, post and page titles) --- */
+
+.post-header {
+  margin-bottom: 2rem;
+}
+
+.post-header .post-title {
+  font-size: 2.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  margin-bottom: 0.7rem;
+}
+
+.post-header .post-title .font-weight-bold {
+  font-weight: inherit;
+}
+
+.post-header .desc,
+.post-header .post-description {
+  color: var(--global-text-color-light);
+  font-size: 1.05rem;
+  margin-bottom: 0;
+}
+
+.post .post-meta,
+.post .post-tags {
+  font-size: 0.85rem;
+}
+
+.post-header .post-tags {
+  padding-bottom: 0;
+}
+
+/* ---------- 5. Home page -------------------------------------------------- */
+
+/* section labels such as "latest posts" */
+article > .clearfix ~ h2 {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+  margin-top: 3rem;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+article > .clearfix ~ h2 a:hover {
+  color: var(--global-text-color) !important;
+  text-decoration: none;
+}
+
+.news .table {
+  margin-bottom: 0;
+}
+
+.news .table th,
+.news .table td {
+  padding: 0.75rem 1rem 0.75rem 0;
+  border-bottom: 1px solid var(--global-divider-color);
+  vertical-align: baseline;
+}
+
+.news .table th {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--global-text-color-light);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.news .table td a {
+  color: var(--global-text-color);
+  font-weight: 500;
+}
+
+.news .table td a:hover {
+  color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+.social {
+  text-align: left;
+  margin-top: 3rem;
+}
+
+.social .contact-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.3rem;
+}
+
+.social .contact-icons a i::before {
+  color: var(--global-text-color-light);
+  transition: color 0.15s ease;
+}
+
+.social .contact-icons a:hover i::before {
+  color: var(--global-theme-color);
+}
+
+.social .contact-note {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--global-text-color-light);
+}
+
+/* ---------- 6. Blog index ------------------------------------------------- */
+
+.header-bar {
+  text-align: left;
+  padding-top: 0;
+  padding-bottom: 1.75rem;
+}
+
+.header-bar h1 {
+  font-size: 2.6rem;
+  letter-spacing: -0.022em;
+  color: var(--global-text-color);
+  margin-bottom: 0.5rem;
+}
+
+.header-bar h2 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--global-text-color-light);
+  margin-bottom: 0;
+}
+
+.post-list li {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
+.post-list li h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.post-list li > p {
+  color: var(--site-text-soft);
+  margin-bottom: 0.7rem;
+}
+
+.post-list li .post-meta,
+.post-list li .post-tags {
+  font-size: 0.82rem;
+}
+
+.post-list li .post-tags a,
+.post .post-tags a {
+  transition: color 0.15s ease;
+}
+
+/* ---------- 7. Post content ----------------------------------------------- */
+
+.post-content {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.post-content p,
+.post-content ul,
+.post-content ol {
+  margin-bottom: 1.2rem;
+}
+
+.post-content li {
+  margin-bottom: 0.35rem;
+}
+
+.post-content h2 {
+  font-size: 1.65rem;
+  margin-top: 2.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.post-content h3 {
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+}
+
+.post-content img {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+}
+
+.caption {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+}
+
+/* wide formulas scroll instead of breaking the layout on phones */
+mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+blockquote {
+  background: transparent;
+  border-left: 3px solid var(--global-theme-color);
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  font-size: 1.05rem;
+}
+
+blockquote p {
+  color: var(--site-text-soft);
+}
+
+blockquote.block-tip,
+blockquote.block-warning,
+blockquote.block-danger {
+  padding: 1em;
+  border-radius: 0 8px 8px 0;
+}
+
+/* ---------- 8. Code ------------------------------------------------------- */
+
+pre,
+code,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+pre {
+  color: var(--global-text-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+code {
+  color: var(--global-text-color);
+}
+
+:not(pre) > code {
+  font-size: 0.86em;
+  padding: 0.12em 0.38em;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 5px;
+}
+
+div.highlighter-rouge,
+figure.highlight {
+  margin-bottom: 1.4rem;
+}
+
+/* ---------- 9. Cards (CV, projects) --------------------------------------- */
+
+.card {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.cv .card .card-title {
+  font-size: 1.3rem;
+}
+
+.cv .card ul.list-group {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.cv .date-column table td {
+  border-top: 0;
+}
+
+/* ---------- 10. Footer ---------------------------------------------------- */
+
+body.sticky-bottom-footer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 0;
+}
+
+body.sticky-bottom-footer > .container[role="main"] {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+footer.sticky-bottom {
+  margin-top: 4rem;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+  border-top: 1px solid var(--global-divider-color);
+  font-size: 0.82rem;
+}
+
+footer.sticky-bottom .container {
+  color: var(--global-text-color-light);
+  text-align: left;
+}
+
+footer.sticky-bottom a {
+  color: var(--global-text-color-light);
+  text-decoration: underline;
+  text-decoration-color: var(--global-divider-color);
+  text-underline-offset: 3px;
+}
+
+footer.sticky-bottom a:hover {
+  color: var(--global-theme-color);
+  text-decoration-color: currentColor;
+}
+
+/* ---------- 11. Small screens --------------------------------------------- */
+
+@media (max-width: 575.98px) {
+  .post-header .post-title,
+  .header-bar h1 {
+    font-size: 2.05rem;
+  }
+
+  .post-content {
+    font-size: 1rem;
+  }
+
+  pre {
+    font-size: 0.78rem;
+    padding: 0.85rem 0.9rem;
+  }
+}
+
+/* ---------- 12. Syntax highlighting --------------------------------------- */
+/* One calm palette for both themes instead of the stock pygments colors. */
+
+:root {
+  --code-comment: #8b9099;
+  --code-keyword: #2a50c8;
+  --code-string: #1c7c4a;
+  --code-number: #b0560f;
+  --code-function: #6f42c1;
+  --code-builtin: #0f7389;
+}
+
+html[data-theme="dark"] {
+  --code-comment: #717684;
+  --code-keyword: #8fb0ff;
+  --code-string: #9dd6a5;
+  --code-number: #efae72;
+  --code-function: #c5a8ff;
+  --code-builtin: #7fd2df;
+}
+
+html .highlight {
+  background: transparent;
+}
+
+html .highlight pre {
+  background-color: var(--global-code-bg-color);
+}
+
+html .highlight span[class] {
+  color: var(--global-text-color);
+  background: transparent;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html .highlight span.c,
+html .highlight span.c1,
+html .highlight span.cm,
+html .highlight span.ch,
+html .highlight span.cs,
+html .highlight span.cp {
+  color: var(--code-comment);
+  font-style: italic;
+}
+
+html .highlight span.k,
+html .highlight span.kn,
+html .highlight span.kd,
+html .highlight span.kc,
+html .highlight span.kr,
+html .highlight span.kt,
+html .highlight span.ow {
+  color: var(--code-keyword);
+  font-weight: 500;
+}
+
+html .highlight span.s,
+html .highlight span.s1,
+html .highlight span.s2,
+html .highlight span.sd,
+html .highlight span.sa,
+html .highlight span.sb,
+html .highlight span.sc,
+html .highlight span.se,
+html .highlight span.si,
+html .highlight span.sr {
+  color: var(--code-string);
+}
+
+html .highlight span.m,
+html .highlight span.mi,
+html .highlight span.mf,
+html .highlight span.mh,
+html .highlight span.mo,
+html .highlight span.mb {
+  color: var(--code-number);
+}
+
+html .highlight span.nf,
+html .highlight span.fm,
+html .highlight span.nc,
+html .highlight span.nd {
+  color: var(--code-function);
+}
+
+html .highlight span.nb,
+html .highlight span.bp {
+  color: var(--code-builtin);
+}
+
+html .highlight span.o,
+html .highlight span.p {
+  color: var(--site-text-soft);
+}
